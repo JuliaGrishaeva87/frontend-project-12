@@ -5,13 +5,33 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "start": "npx start-server -s ./dist",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview"
   },
   "dependencies": {
-    "react": "^19.2.7",
-    "react-dom": "^19.2.7"
+    "@reduxjs/toolkit": "^2.11.2",
+    "@rollbar/react": "^1.0.0",
+    "axios": "^1.11.0",
+    "bootstrap": "^5.3.8",
+    "formik": "^2.4.6",
+    "frontend": "file:",
+    "i18next": "^26.0.8",
+    "i18next-browser-languagedetector": "^8.2.1",
+    "leo-profanity": "^1.9.0",
+    "lorem-ipsum": "^2.0.8",
+    "react": "^19.1.1",
+    "react-bootstrap": "^2.10.10",
+    "react-dom": "^19.1.1",
+    "react-i18next": "^17.0.6",
+    "react-redux": "^9.2.0",
+    "react-router-dom": "^7.8.2",
+    "react-toastify": "^11.1.0",
+    "rollbar": "^3.1.0",
+    "socket.io": "^4.8.3",
+    "socket.io-client": "^4.8.3",
+    "yup": "^1.7.1"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
