@@ -6,3 +6,6 @@ build:
 
 start:
 	npm start
+
+vite:
+	npm run dev
