@@ -10,3 +10,6 @@ start:
 build:
 	rm -rf frontend/dist
 	npm run build
+
+vite:
+	npm run dev --prefix frontend

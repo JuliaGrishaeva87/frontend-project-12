@@ -1,18 +1,35 @@
+import axios from 'axios'
 import { useState} from 'react'
 import { useFormik } from 'formik'
-import { Link } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { Container, Button, Card, Col, Form, FloatingLabel, Row } from 'react-bootstrap'
 import avatarImage from '../assets/avatar-login.jpg'
+import routes from '../routes'
+import { setCredentials } from '../slices/authSlice'
 
 const Login = () => {
   const [authFailed, setAuthFailed] = useState(false)
+  const dispatch = useDispatch()
+  const location = useLocation()
+  const navigate = useNavigate()
+  const redirectPath = location.state?.from?.pathname ?? '/'
   const formik = useFormik({
      initialValues: {
        username: '',
        password: '',
      },
-     onSubmit: async(values) => {
-      console.log('SubmitBtn on')
+     onSubmit: async (values) => {
+      setAuthFailed(false)
+      try {
+        const response = await axios.post(routes.loginPath(), values)
+        dispatch(setCredentials(response.data))
+        navigate(redirectPath, { replace: true })
+      }
+      catch (err) {
+        formik.setSubmitting(false)
+        setAuthFailed(true)
+      }
     },
   })
 

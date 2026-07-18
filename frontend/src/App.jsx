@@ -3,6 +3,7 @@ import { Container, Navbar } from 'react-bootstrap'
 import Home from './pages/Home.jsx'
 import Login from './pages/Login.jsx'
 import NotFound from './pages/NotFound.jsx'
+import PrivateRoute from './components/PrivateRoute.jsx'
 
 const App = () => {
   return (
@@ -16,7 +17,9 @@ const App = () => {
           </Container>
         </Navbar>
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={
+            <PrivateRoute><Home /></PrivateRoute>
+          } />
           <Route path="/login" element={<Login />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
