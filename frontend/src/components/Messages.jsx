@@ -2,25 +2,34 @@ import { useSelector, useDispatch } from "react-redux"
 import { useState } from "react"
 import { Col, Button, Form, InputGroup } from "react-bootstrap"
 import { addMessage } from "../slices/messagesSlice.js"
+import axios from "axios"
+import routes from "../routes.js"
 
 const Messages = () => {
   const currentChannel = useSelector(state => state.channels.currentChannel)
+  const token = useSelector(state => state.auth.token)
   const messages = useSelector(state => state.messages.messages)
+  const username = useSelector(state => state.auth.username)
   const dispatch = useDispatch()
   const [text, setText] = useState('')
   const currentChannelMessages = messages.filter(
     (message) => message.channelId === currentChannel?.id
   )
 
-  const handleSubmitMessage = (e) => {
+  const handleSubmitMessage = async (e) => {
     e.preventDefault()
     if (text.trim() === '') return
     const message = {
       body: text,
       channelId: currentChannel?.id,
-      username: 'User',
+      username: username,
     }
-    dispatch(addMessage(message))
+    try {
+      await axios.post(routes.getAddMessagesPath(), message, { headers: { Authorization: `Bearer ${token}` } } )
+    }
+    catch (err) {
+      console.log('Your message has not been sent')
+    }
     setText('')
   }
 
@@ -35,10 +44,9 @@ const Messages = () => {
         </div>
         <div id="messages-box" className="chat-messages overflow-auto px-5">
           {currentChannelMessages.map(message => (
-            <div className="text-break mb-2">
+            <div className="text-break mb-2" key={message.id}>
             <b>{message.username}</b>
-            : 
-            {message.body}
+            : {message.body}
             </div>
             ))}
         </div>

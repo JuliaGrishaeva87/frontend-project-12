@@ -3,10 +3,12 @@ import { useEffect } from "react"
 import routes from "../routes"
 import { useSelector, useDispatch } from "react-redux"
 import { setChannels } from "../slices/channelsSlice"
-import { setMessages } from "../slices/messagesSlice"
+import { addMessage, setMessages } from "../slices/messagesSlice"
+import { addChannel, removeChannel, editChannel } from "../slices/channelsSlice"
 import { Container, Row } from "react-bootstrap"
 import Channels from "../components/Channels.jsx"
 import Messages from "../components/Messages.jsx"
+import socket from "../socket.js"
 
 const Home = () => {
   const token = useSelector(state => state.auth.token)
@@ -27,6 +29,31 @@ const Home = () => {
     }
     fetchData()
   }, [])
+
+  useEffect(() => {
+    socket.on('newMessage', (payload) => {
+      dispatch(addMessage(payload))
+    })
+
+    socket.on('newChannel', (payload) => {
+      dispatch(addChannel(payload))
+    })
+
+    socket.on('removeChannel', (payload) => {
+      dispatch(removeChannel(payload))
+    })
+
+    socket.on('renameChannel', (payload) => {
+      dispatch(editChannel(payload))
+    })
+
+    return () => {
+      socket.off('newMessage')
+      socket.off('newChannel')
+      socket.off('removeChannel')
+      socket.off('renameChannel')
+    }
+  },[])
 
   return (
     <Container className="h-100 my-4 overflow-hidden rounded shadow">
