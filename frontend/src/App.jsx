@@ -12,7 +12,7 @@ const App = () => {
         <Navbar expand="lg" className="bg-white shadow-sm">
           <Container>
             <Navbar.Brand as={Link} to="">
-              Чат Hexlet
+              Hexlet Chat
             </Navbar.Brand>
           </Container>
         </Navbar>

@@ -16,9 +16,18 @@ const channelsSlice = createSlice({
     setCurrentChannel: (state, { payload }) => {
       state.currentChannel = payload
     },
-    addChannel: () => {},
-    editChannel: () => {},
-    removeChannel: () => {}
+    addChannel: (state, { payload }) => {
+      state.channels.push(payload)
+    },
+    editChannel: (state, {payload}) => {
+      const channel = state.channels.find(c => c.id === payload.id)
+      channel && (channel.name = payload.name)
+      state.currentChannel?.id === payload.id && (state.currentChannel.name = payload.name)
+    },
+    removeChannel: (state, {payload}) => {
+      state.channels = state.channels.filter(channel => channel.id !== payload.id)
+      state.currentChannel = state.currentChannel?.id === payload.id ? state.channels[0] : state.currentChannel
+    }
   }
 })
 

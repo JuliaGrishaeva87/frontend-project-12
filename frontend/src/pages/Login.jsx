@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { Container, Button, Card, Col, Form, FloatingLabel, Row } from 'react-bootstrap'
 import avatarImage from '../assets/avatar-login.jpg'
-import routes from '../routes'
+import routes from '../utils/routes.js'
 import { setCredentials } from '../slices/authSlice'
 
 const Login = () => {

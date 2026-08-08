@@ -1,15 +1,12 @@
 import { useDispatch, useSelector } from "react-redux"
-import { Col, Button, Nav } from "react-bootstrap"
+import { Col, Button, Nav, Dropdown, ButtonGroup } from "react-bootstrap"
 import { setCurrentChannel } from "../slices/channelsSlice.js"
+import { openModal } from "../slices/modalSlice.js"
 
 const Channels = () => {
   const channels = useSelector(state => state.channels.channels)
   const currentChannel = useSelector( state => state.channels.currentChannel)
   const dispatch = useDispatch()
-
-  const addChannel = () => {
-
-  }
 
   const handleSelectChannel = (channel) => dispatch(setCurrentChannel(channel))
 
@@ -21,7 +18,7 @@ const Channels = () => {
         type="button"
         variant="group-vertical"
         className="p-0 text-primary"
-        onClick={addChannel}
+        onClick={() => dispatch(openModal({ type: 'adding' }))}
         >
           <svg
           xmlns="http://www.w3.org/2000/svg" 
@@ -45,17 +42,41 @@ const Channels = () => {
         className="flex-column px-2 mb-3 overflow-auto h-100 d-block"
       >
         {channels.map((channel) => {
-          const isActive = channel.id === currentChannel.id
-          return (
+          const isActive = channel.id === currentChannel?.id
+          if (channel.removable !== true) {
+            return (
             <Nav.Item className="w-100" key={channel.id} as="li">
-              <button
-                type="button"
-                className={`w-100 text-start rounded-0 btn ${isActive ? 'btn-secondary' : ''}`}
+              <Button
+                variant={isActive ? 'secondary' : ''}
+                className="w-100 text-start rounded-0"
                 onClick={() => handleSelectChannel(channel)}
               >
-                <span className="me-1">#</span>
+                <span className="me-1"># </span>
                  {channel.name}
-              </button>
+              </Button>
+            </Nav.Item>
+          )
+          } else return (
+            <Nav.Item className="w-100" key={channel.id} as="li">
+              <Dropdown as={ButtonGroup} className="d-flex">
+                <Button
+                variant={isActive ? 'secondary' : ''}
+                className="w-100 rounded-0 text-start text-truncate"
+                onClick={() => handleSelectChannel(channel)}
+                >
+                  <span className="me-1"># </span>
+                  {channel.name}
+                </Button>
+                <Dropdown.Toggle
+                id={channel.id}
+                variant={isActive ? 'secondary' : ''}
+                className="flex-grow-0 dropdown-toggle dropdown-toggle-split" aria-expanded="false" />
+                  <span className="visually-hidden"></span>
+                <Dropdown.Menu>
+                  <Dropdown.Item onClick={() => dispatch(openModal({ type: 'removing', item: channel }))}>Удалить</Dropdown.Item>
+                  <Dropdown.Item onClick={() => dispatch(openModal({ type: 'renaming', item: channel }))}>Переименовать</Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
             </Nav.Item>
           )
         })}
