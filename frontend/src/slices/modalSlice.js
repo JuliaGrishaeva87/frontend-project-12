@@ -1,5 +1,5 @@
-import { createSlice } from "@reduxjs/toolkit"
-import { setCurrentChannel, removeChannel, editChannel } from "./channelsSlice.js"
+import { createSlice } from '@reduxjs/toolkit'
+import { setCurrentChannel, removeChannel, editChannel } from './channelsSlice.js'
 
 const initialState = {
   isOpened: false,

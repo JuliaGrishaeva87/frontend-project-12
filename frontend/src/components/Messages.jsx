@@ -1,9 +1,9 @@
-import { useSelector, useDispatch } from "react-redux"
-import { useState } from "react"
-import { Col, Button, Form, InputGroup } from "react-bootstrap"
-import { addMessage } from "../slices/messagesSlice.js"
-import axios from "axios"
-import routes from "../utils/routes.js"
+import { useSelector, useDispatch } from 'react-redux'
+import { useState } from 'react'
+import { Col, Button, Form, InputGroup } from 'react-bootstrap'
+import { addMessage } from '../slices/messagesSlice.js'
+import axios from 'axios'
+import routes from '../utils/routes.js'
 
 const Messages = () => {
   const currentChannel = useSelector(state => state.channels.currentChannel)

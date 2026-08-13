@@ -1,7 +1,7 @@
-import { useDispatch, useSelector } from "react-redux"
-import { Col, Button, Nav, Dropdown, ButtonGroup } from "react-bootstrap"
-import { setCurrentChannel } from "../slices/channelsSlice.js"
-import { openModal } from "../slices/modalSlice.js"
+import { useDispatch, useSelector } from 'react-redux'
+import { Col, Button, Nav, Dropdown, ButtonGroup } from 'react-bootstrap'
+import { setCurrentChannel } from '../slices/channelsSlice.js'
+import { openModal } from '../slices/modalSlice.js'
 
 const Channels = () => {
   const channels = useSelector(state => state.channels.channels)

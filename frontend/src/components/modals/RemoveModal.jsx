@@ -1,7 +1,7 @@
-import { Modal, Button } from "react-bootstrap"
-import { useSelector } from "react-redux"
-import routes from "../../utils/routes.js"
-import axios from "axios"
+import { Modal, Button } from 'react-bootstrap'
+import { useSelector } from 'react-redux'
+import routes from '../../utils/routes.js'
+import axios from 'axios'
 
 const RemoveModal = ({handleClose}) => {
   const token = useSelector(state => state.auth.token)

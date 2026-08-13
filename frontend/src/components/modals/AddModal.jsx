@@ -1,11 +1,11 @@
-import { useSelector, useDispatch } from "react-redux"
-import { Button, Modal, Form } from "react-bootstrap"
-import { useFormik } from "formik"
-import { validationChannelsShema } from "../../utils/validation.js"
-import axios from "axios"
-import routes from "../../utils/routes.js"
-import { useEffect, useRef } from "react"
-import { setCurrentChannel } from "../../slices/channelsSlice.js"
+import { useSelector, useDispatch } from 'react-redux'
+import { Button, Modal, Form } from 'react-bootstrap'
+import { useFormik } from 'formik'
+import { validationChannelsShema } from '../../utils/validation.js'
+import axios from 'axios'
+import routes from '../../utils/routes.js'
+import { useEffect, useRef } from 'react'
+import { setCurrentChannel } from '../../slices/channelsSlice.js'
 
 const AddModal = ({handleClose}) => {
   const dispatch = useDispatch()

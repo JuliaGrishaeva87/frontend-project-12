@@ -15,10 +15,15 @@ const authSlice = createSlice({
       state.username = payload.username
       state.token = payload.token
       localStorage.setItem('userId', JSON.stringify(payload))
-    }
+    },
+    removeCredentials: (state) => {
+    state.username = null
+    state.token = null
+    localStorage.removeItem('userId')
+  }
   }
 })
 
-export const { setCredentials } = authSlice.actions
+export const { setCredentials, removeCredentials } = authSlice.actions
 
 export default authSlice.reducer

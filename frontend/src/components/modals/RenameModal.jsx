@@ -1,10 +1,10 @@
-import { useSelector } from "react-redux"
-import axios from "axios"
-import routes from "../../utils/routes"
-import { useFormik } from "formik"
-import { Modal, Form, Button } from "react-bootstrap"
-import { validationChannelsShema } from "../../utils/validation"
-import { useRef, useEffect } from "react"
+import { useSelector } from 'react-redux'
+import axios from 'axios'
+import routes from '../../utils/routes'
+import { useFormik } from 'formik'
+import { Modal, Form, Button } from 'react-bootstrap'
+import { validationChannelsShema } from '../../utils/validation'
+import { useRef, useEffect } from 'react'
 
 const RenameModal = ({handleClose}) => {
   const channels = useSelector(state => state.channels.channels)

@@ -1,9 +1,9 @@
-import { useSelector, useDispatch } from "react-redux"
-import { Modal } from "react-bootstrap"
-import { closeModal } from "../../slices/modalSlice.js"
-import AddModal from "./AddModal.jsx"
-import RemoveModal from "./RemoveModal.jsx"
-import RenameModal from "./RenameModal.jsx"
+import { useSelector, useDispatch } from 'react-redux'
+import { Modal } from 'react-bootstrap'
+import { closeModal } from '../../slices/modalSlice.js'
+import AddModal from './AddModal.jsx'
+import RemoveModal from './RemoveModal.jsx'
+import RenameModal from './RenameModal.jsx'
 
 const modals = {
   adding: AddModal,

@@ -1,15 +1,15 @@
-import axios from "axios"
-import { useEffect } from "react"
-import routes from "../utils/routes.js"
-import { useSelector, useDispatch } from "react-redux"
-import { setChannels } from "../slices/channelsSlice"
-import { addMessage, setMessages } from "../slices/messagesSlice"
-import { addChannel, removeChannel, editChannel } from "../slices/channelsSlice"
-import { Container, Row } from "react-bootstrap"
-import Channels from "../components/Channels.jsx"
-import Messages from "../components/Messages.jsx"
-import socket from "../utils/socket.js"
-import ModalWindow from "../components/modals/index.jsx"
+import axios from 'axios'
+import { useEffect } from 'react'
+import routes from '../utils/routes.js'
+import { useSelector, useDispatch } from 'react-redux'
+import { setChannels } from '../slices/channelsSlice'
+import { addMessage, setMessages } from '../slices/messagesSlice'
+import { addChannel, removeChannel, editChannel } from '../slices/channelsSlice'
+import { Container, Row } from 'react-bootstrap'
+import Channels from '../components/Channels.jsx'
+import Messages from '../components/Messages.jsx'
+import socket from '../utils/socket.js'
+import ModalWindow from '../components/modals/index.jsx'
 
 const Home = () => {
   const token = useSelector(state => state.auth.token)
