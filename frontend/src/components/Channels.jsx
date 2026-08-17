@@ -2,18 +2,20 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Col, Button, Nav, Dropdown, ButtonGroup } from 'react-bootstrap'
 import { setCurrentChannel } from '../slices/channelsSlice.js'
 import { openModal } from '../slices/modalSlice.js'
+import { useTranslation } from 'react-i18next'
 
 const Channels = () => {
   const channels = useSelector(state => state.channels.channels)
   const currentChannel = useSelector( state => state.channels.currentChannel)
   const dispatch = useDispatch()
+  const { t } = useTranslation()
 
   const handleSelectChannel = (channel) => dispatch(setCurrentChannel(channel))
 
   return (
     <Col xs={4} md={2} className="border-end px-0 bg-light flex-column h-100 d-flex">
       <div className="d-flex mt-1 justify-content-between mb-2 ps-4 pe-2 p-4">
-        <span className="fw-bold">Каналы</span>
+        <span className="fw-bold">{t('homePage.titleChannels')}</span>
         <Button
         type="button"
         variant="group-vertical"
@@ -73,8 +75,8 @@ const Channels = () => {
                 className="flex-grow-0 dropdown-toggle dropdown-toggle-split" aria-expanded="false" />
                   <span className="visually-hidden"></span>
                 <Dropdown.Menu>
-                  <Dropdown.Item onClick={() => dispatch(openModal({ type: 'removing', item: channel }))}>Удалить</Dropdown.Item>
-                  <Dropdown.Item onClick={() => dispatch(openModal({ type: 'renaming', item: channel }))}>Переименовать</Dropdown.Item>
+                  <Dropdown.Item onClick={() => dispatch(openModal({ type: 'removing', item: channel }))}>{t('homePage.dropdownItemDelete')}</Dropdown.Item>
+                  <Dropdown.Item onClick={() => dispatch(openModal({ type: 'renaming', item: channel }))}>{t('homePage.dropdownItemRename')}</Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
             </Nav.Item>

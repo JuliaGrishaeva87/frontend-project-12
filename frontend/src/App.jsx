@@ -7,10 +7,12 @@ import PrivateRoute from './components/PrivateRoute.jsx'
 import Singup from './pages/Signup.jsx'
 import { useDispatch, useSelector } from 'react-redux'
 import { removeCredentials } from './slices/authSlice.js'
+import { useTranslation } from 'react-i18next'
 
 const App = () => {
   const token = useSelector(state => state.auth.token)
   const dispatch = useDispatch()
+  const { t } = useTranslation()
 
   return (
     <BrowserRouter>
@@ -18,12 +20,12 @@ const App = () => {
         <Navbar expand="lg" className="bg-white shadow-sm">
           <Container>
             <Navbar.Brand as={Link} to="/">
-              Hexlet Chat
+              {t('navBar.title')}
             </Navbar.Brand>
             {token && (
               <Button
               onClick={() => dispatch(removeCredentials())}>
-                Выйти
+                {t('navBar.exitBtn')}
               </Button>
             )}
           </Container>

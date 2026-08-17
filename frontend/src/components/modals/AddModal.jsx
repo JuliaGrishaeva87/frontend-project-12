@@ -1,11 +1,12 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { Button, Modal, Form } from 'react-bootstrap'
 import { useFormik } from 'formik'
-import { validationChannelsShema } from '../../utils/validation.js'
+import { validationChannelsSchema } from '../../utils/validation.js'
 import axios from 'axios'
 import routes from '../../utils/routes.js'
 import { useEffect, useRef } from 'react'
 import { setCurrentChannel } from '../../slices/channelsSlice.js'
+import { useTranslation } from 'react-i18next'
 
 const AddModal = ({handleClose}) => {
   const dispatch = useDispatch()
@@ -13,6 +14,8 @@ const AddModal = ({handleClose}) => {
   const channelsNames = channels.map(channel => channel.name)
   const token = useSelector(state => state.auth.token)
   const inputRef = useRef()
+  const { t } = useTranslation()
+
   useEffect(() => {
     inputRef.current.focus()
   }, [])
@@ -21,7 +24,7 @@ const AddModal = ({handleClose}) => {
     initialValues: {
       name: '',
     },
-    validationSchema: validationChannelsShema(channelsNames),
+    validationSchema: validationChannelsSchema(channelsNames),
     onSubmit: async (values) => {
       const channel = {
         name: values.name,
@@ -30,6 +33,7 @@ const AddModal = ({handleClose}) => {
       try {
         const response = await axios.post(routes.getAddChannelsPath(), channel, { headers: { Authorization: `Bearer ${token}` } } )
         dispatch(setCurrentChannel(response.data))
+        handleClose()
       }
       catch (err) {
         console.log(err)
@@ -40,7 +44,7 @@ const AddModal = ({handleClose}) => {
   return (
     <>
       <Modal.Header closeButton>
-        <Modal.Title>Добавить канал</Modal.Title>
+        <Modal.Title>{t('modals.addModalTitle')}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <form onSubmit={formik.handleSubmit}>
@@ -55,10 +59,10 @@ const AddModal = ({handleClose}) => {
               ref={inputRef}
             />
             <Form.Label className="visually-hidden" htmlFor="name">
-              Имя канала
+              {t('modals.addRenameModalLabel')}
             </Form.Label>
             <Form.Control.Feedback type="invalid">
-              {formik.errors.name}
+              {t(formik.errors.name?.key, formik.errors.name?.values)}
             </Form.Control.Feedback>
             <div className="d-flex justify-content-end">
               <Button
@@ -67,14 +71,14 @@ const AddModal = ({handleClose}) => {
                 type="button"
                 onClick={handleClose}
               >
-                Отменить
+                {t('modals.modalCancelBtn')}
               </Button>
               <Button
                 variant="primary"
                 type="submit"
                 disabled={formik.isSubmitting}
               >
-                Отправить
+                {t('modals.modalSendBtn')}
               </Button>
             </div>
           </div>

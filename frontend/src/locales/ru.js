@@ -1,0 +1,74 @@
+export default {
+  translation: {
+    languages: {
+      ru: 'Русский',
+    },
+    navBar: {
+      title: 'Hexlet Chat',
+      exitBtn: 'Выйти',
+    },
+    loginPage: {
+      avatarAlt: 'Вход',
+      title: 'Войти',
+      usernameField: 'Ваш ник',
+      passwordField: 'Пароль',
+      enterBtn: 'Войти',
+      exitBtn: 'Выйти',
+      noAccSentence: 'Нет аккаунта?',
+      registrationWord: 'Регистрация',
+    },
+    notFoundPage: {
+      avatarAlt: 'Страница не найдена',
+      title: 'Страница не найдена',
+      adviceSentence: 'Но вы можете перейти',
+      mainPageLink: 'на главную страницу',
+    },
+    signupPage: {
+      avatarAlt: 'Регистрация',
+      title: 'Регистрация',
+      usernameLabel: 'Имя пользователя',
+      usernamePlaceholder: 'От 3 до 20 символов',
+      passwordLabel: 'Пароль',
+      passwordPlaceholder: 'Не менее 6 символов',
+      confirmPasswordLabel: 'Подтвердите пароль',
+      confirmPasswordPlaceholder: 'Пароли должны совпадать',
+      submitBtn: 'Зарегистрироваться',
+    },
+    homePage: {
+      titleChannels: 'Каналы',
+      dropdownItemDelete: 'Удалить',
+      dropdownItemRename: 'Переименовать',
+      amountOfMessages: {
+        key_one: '{{count}} сообщение',
+        key_few: '{{count}} сообщения',
+        key_many: '{{count}} сообщений',
+      },
+      messagesPlaceholder: 'Введите сообщение...',
+      messagesAriaLabel: 'Новое сообщение',
+      hiddenSpanSend: 'Отправить',
+    },
+    errors: {
+      authErr: 'Неверные имя пользователя или пароль',
+      signupErr: 'Такой пользователь уже существует',
+      messageNotSentErr: 'Ваше сообщение не было отправлено',
+      validation: {
+        required: 'Обязательное поле',
+        passwordMatch: 'Пароли должны совпадать',
+        channelExists: 'Канал с таким названием уже существует',
+        passwordMin: 'Не менее 6 символов',
+        stringMin: 'От {{min}} до 20 символов',
+        stringMax: 'От 3 до {{max}} символов'
+      },
+    },
+    modals: {
+      addModalTitle: 'Добавить канал', 
+      removeModalTitle: 'Удалить канал',
+      renameModalTitle: 'Переименовать канал',
+      addRenameModalLabel: 'Имя канала',
+      removeModalMessage: 'Уверены?',
+      modalCancelBtn: 'Отменить',
+      modalSendBtn: 'Отправить',
+      modalDeleteBtn: 'Удалить',
+    },
+  },
+}

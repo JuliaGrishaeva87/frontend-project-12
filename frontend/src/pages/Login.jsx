@@ -7,6 +7,7 @@ import { Container, Button, Card, Col, Form, FloatingLabel, Row } from 'react-bo
 import avatarImage from '../assets/avatar-login.jpg'
 import routes from '../utils/routes.js'
 import { setCredentials } from '../slices/authSlice'
+import { useTranslation } from 'react-i18next'
 
 const Login = () => {
   const [authFailed, setAuthFailed] = useState(false)
@@ -14,6 +15,8 @@ const Login = () => {
   const location = useLocation()
   const navigate = useNavigate()
   const redirectPath = location.state?.from?.pathname ?? '/'
+  const { t } = useTranslation()
+
   const formik = useFormik({
      initialValues: {
        username: '',
@@ -43,20 +46,20 @@ const Login = () => {
                 <img
                 src={avatarImage}
                 className="rounded-circle"
-                alt="Вход" />
+                alt={t('loginPage.avatarAlt')} />
               </Col>
               <Form 
                 onSubmit={formik.handleSubmit}
                 className="col-12 col-md-6 mt-3 mt-md-0">
-                <h1 className="text-center mb-4">Вход</h1>
+                <h1 className="text-center mb-4">{t('loginPage.title')}</h1>
                 <FloatingLabel
                   controlId="username"
-                  label="Ваш ник"
+                  label={t('loginPage.usernameField')}
                   className="mb-3"
                 >
                   <Form.Control 
                     type="text" 
-                    placeholder="Ваш ник"
+                    placeholder={t('loginPage.usernameField')}
                     name="username"
                     autoComplete="username"
                     required
@@ -66,13 +69,13 @@ const Login = () => {
                 </FloatingLabel>
                 <FloatingLabel
                   controlId="password"
-                  label="Пароль"
+                  label={t('loginPage.passwordField')}
                   className="mb-4"
                 >
                   <Form.Control
                     type="password"
                     name="password"
-                    placeholder="Пароль"
+                    placeholder={t('loginPage.passwordField')}
                     autoComplete="current-password"
                     required
                     onChange={formik.handleChange}
@@ -80,7 +83,7 @@ const Login = () => {
                     isInvalid={authFailed}
                   />
                   <Form.Control.Feedback type="invalid" tooltip>
-                    Неверные имя пользователя или пароль
+                    {t('errors.authErr')}
                   </Form.Control.Feedback>
                 </FloatingLabel>
                 <Button
@@ -88,14 +91,14 @@ const Login = () => {
                   variant="outline-primary"
                   className="w-100 mb-3"
                 >
-                  Вход
+                  {t('loginPage.enterBtn')}
                 </Button>
               </Form>
             </Card.Body>
             <Card.Footer className="p-4">
               <div className="text-center">
-                <span>Нет аккаунта? </span>
-                <Link to="/signup">Регистрация</Link>
+                <span>{t('loginPage.noAccSentence')} </span>
+                <Link to="/signup">{t('loginPage.registrationWord')}</Link>
               </div>
             </Card.Footer>
           </Card>

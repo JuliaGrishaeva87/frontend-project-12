@@ -3,8 +3,9 @@ import axios from 'axios'
 import routes from '../../utils/routes'
 import { useFormik } from 'formik'
 import { Modal, Form, Button } from 'react-bootstrap'
-import { validationChannelsShema } from '../../utils/validation'
+import { validationChannelsSchema } from '../../utils/validation'
 import { useRef, useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 
 const RenameModal = ({handleClose}) => {
   const channels = useSelector(state => state.channels.channels)
@@ -15,6 +16,8 @@ const RenameModal = ({handleClose}) => {
   const token = useSelector(state => state.auth.token)
   const channelId = editedChannel?.id
   const inputRef = useRef()
+  const { t } = useTranslation()
+  
   useEffect(() => {
     inputRef.current.select()
   }, [])
@@ -23,7 +26,7 @@ const RenameModal = ({handleClose}) => {
     initialValues: {
       name: editedChannel.name,
     },
-    validationSchema: validationChannelsShema(channelsNames),
+    validationSchema: validationChannelsSchema(channelsNames),
     onSubmit: async (values) => {
       const editedChannel = {
         name: values.name,
@@ -32,9 +35,10 @@ const RenameModal = ({handleClose}) => {
         await axios.patch(routes.editRemoveChannelsPath(channelId), editedChannel, {
           headers: { Authorization: `Bearer ${token}` }
         })
+        handleClose()
       }
       catch (err) {
-        console.log(`Невозможно переименовать канал: ${err}`)
+        console.log(err)
       } 
     },
   })
@@ -43,7 +47,7 @@ const RenameModal = ({handleClose}) => {
     <>
       <Modal.Header closeButton>
         <Modal.Title>
-          Переименовать канал
+          {t('modals.renameModalTitle')}
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
@@ -56,14 +60,13 @@ const RenameModal = ({handleClose}) => {
               value={formik.values.name}
               onChange={formik.handleChange}
               isInvalid={formik.touched.name && !!formik.errors.name}
-              autoFocus
               ref={inputRef}
             />
             <Form.Label className="visually-hidden" htmlFor="name">
-              Имя канала
+              {t('modals.addRenameModalLabel')}
             </Form.Label>
             <Form.Control.Feedback type="invalid">
-              {formik.errors.name}
+              {t(formik.errors.name?.key, formik.errors.name?.values)}
             </Form.Control.Feedback>
             <div className="d-flex justify-content-end">
               <Button
@@ -72,14 +75,14 @@ const RenameModal = ({handleClose}) => {
                 type="button"
                 onClick={handleClose}
               >
-                Отменить
+                {t('modals.modalCancelBtn')}
               </Button>
               <Button
                 variant="primary"
                 type="submit"
                 disabled={formik.isSubmitting}
               >
-                Отправить
+                {t('modals.modalSendBtn')}
               </Button>
             </div>
           </div>

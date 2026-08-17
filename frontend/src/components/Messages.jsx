@@ -4,6 +4,7 @@ import { Col, Button, Form, InputGroup } from 'react-bootstrap'
 import { addMessage } from '../slices/messagesSlice.js'
 import axios from 'axios'
 import routes from '../utils/routes.js'
+import { useTranslation } from 'react-i18next'
 
 const Messages = () => {
   const currentChannel = useSelector(state => state.channels.currentChannel)
@@ -15,6 +16,7 @@ const Messages = () => {
   const currentChannelMessages = messages.filter(
     (message) => message.channelId === currentChannel?.id
   )
+  const { t } = useTranslation()
 
   const handleSubmitMessage = async (e) => {
     e.preventDefault()
@@ -28,7 +30,7 @@ const Messages = () => {
       await axios.post(routes.getAddMessagesPath(), message, { headers: { Authorization: `Bearer ${token}` } } )
     }
     catch (err) {
-      console.log('Your message has not been sent')
+      console.log(t('errors.messageNotSentErr'))
     }
     setText('')
   }
@@ -40,7 +42,7 @@ const Messages = () => {
           <p className="m-0">
             <b># {currentChannel?.name}</b>
           </p>
-          <span className="text-muted">{currentChannelMessages.length} сообщений</span>
+          <span className="text-muted">{t('homePage.amountOfMessages.key', {count: currentChannelMessages.length})}</span>
         </div>
         <div id="messages-box" className="chat-messages overflow-auto px-5">
           {currentChannelMessages.map(message => (
@@ -56,8 +58,8 @@ const Messages = () => {
               <Form.Control
                 name="body"
                 type="text"
-                placeholder="Введите сообщение..."
-                aria-label="Новое сообщение"
+                placeholder={t('homePage.messagesPlaceholder')}
+                aria-label={t('homePage.messagesAriaLabel')}
                 className="border-0 p-0 ps-2"
                 value={text}
                 onChange={(e) => setText(e.target.value)}
@@ -73,7 +75,7 @@ const Messages = () => {
               >
                 <path fillRule="evenodd" d="M15 2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1zM0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm4.5 5.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5z"></path>
               </svg>
-              <span className="visually-hidden">Отправить</span>
+              <span className="visually-hidden">{t('homePage.hiddenSpanSend')}</span>
             </Button>
             </InputGroup>
           </Form>

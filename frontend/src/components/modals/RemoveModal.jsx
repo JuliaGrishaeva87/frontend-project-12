@@ -2,11 +2,13 @@ import { Modal, Button } from 'react-bootstrap'
 import { useSelector } from 'react-redux'
 import routes from '../../utils/routes.js'
 import axios from 'axios'
+import { useTranslation } from 'react-i18next'
 
 const RemoveModal = ({handleClose}) => {
   const token = useSelector(state => state.auth.token)
   const channel = useSelector(state => state.modal.item)
   const channelId = channel?.id
+  const { t } = useTranslation()
 
   const deleteModal = async () => {
     try {
@@ -15,30 +17,30 @@ const RemoveModal = ({handleClose}) => {
       } )
     }
     catch (err) {
-      console.log(`Невозможно удалить: ${err}`)
+      console.log(err)
     }
   }
 
   return (
     <>
       <Modal.Header closeButton>
-        <Modal.Title>Удалить канал</Modal.Title>
+        <Modal.Title>{t('modals.removeModalTitle')}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <p className="lead">Уверены?</p>
+        <p className="lead">{t('modals.removeModalMessage')}</p>
         <div className="d-flex justify-content-end">
           <Button
             className="me-2"
             variant="secondary"
             onClick={handleClose}
           >
-            Отменить
+            {t('modals.modalCancelBtn')}
           </Button>
           <Button
             variant="danger"
             onClick={deleteModal}
           >
-            Удалить
+            {t('modals.modalDeleteBtn')}
           </Button>
         </div>
       </Modal.Body>

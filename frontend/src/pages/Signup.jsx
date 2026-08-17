@@ -7,19 +7,22 @@ import { Container, Button, Card, Col, Form, FloatingLabel, Row } from 'react-bo
 import avatarSignup from '../assets/avatar-singup.jpg'
 import routes from '../utils/routes.js'
 import { setCredentials } from '../slices/authSlice'
-import { validationSignupShema } from '../utils/validation.js'
+import { validationSignupSchema } from '../utils/validation.js'
+import { useTranslation } from 'react-i18next'
 
 const Signup = () => {
   const [authFailed, setAuthFailed] = useState(false)
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  const { t } = useTranslation()
+
   const formik = useFormik({
      initialValues: {
        username: '',
        password: '',
        confirmPassword: ''
      },
-     validationSchema: validationSignupShema(),
+     validationSchema: validationSignupSchema(),
      onSubmit: async (values) => {
       setAuthFailed(false)
       try {
@@ -45,20 +48,20 @@ const Signup = () => {
                 <img
                 src={avatarSignup}
                 className="rounded-circle"
-                alt="Регистрация" />
+                alt={t('signupPage.avatarAlt')} />
               </div>
               <Form 
                 onSubmit={formik.handleSubmit}
                 className="w-50">
-                <h1 className="text-center mb-4">Регистрация</h1>
+                <h1 className="text-center mb-4">{t('signupPage.title')}</h1>
                 <FloatingLabel
                   controlId="username"
-                  label="Имя пользователя"
+                  label={t('signupPage.usernameLabel')}
                   className="mb-3"
                 >
                   <Form.Control 
                     type="text" 
-                    placeholder="От 3 до 20 символов"
+                    placeholder={t('signupPage.usernamePlaceholder')}
                     name="username"
                     autoComplete="username"
                     required
@@ -75,13 +78,13 @@ const Signup = () => {
                 </FloatingLabel>
                 <FloatingLabel
                   controlId="password"
-                  label="Пароль"
+                  label={t('signupPage.passwordLabel')}
                   className="mb-3"
                 >
                   <Form.Control
                     type="password"
                     name="password"
-                    placeholder="Не менее 6 символов"
+                    placeholder={t('signupPage.passwordPlaceholder')}
                     required
                     isInvalid={formik.touched.password && !!formik.errors.password || authFailed}
                     onChange={(e) => {
@@ -96,13 +99,13 @@ const Signup = () => {
                 </FloatingLabel>
                 <FloatingLabel
                   controlId="confirmPassword"
-                  label="Подтвердите пароль"
+                  label={t('signupPage.confirmPasswordLabel')}
                   className="mb-4"
                 >
                   <Form.Control
                     type="password"
                     name="confirmPassword"
-                    placeholder="Пароли должны совпадать"
+                    placeholder={t('signupPage.confirmPasswordPlaceholder')}
                     onChange={(e) => {
                       setAuthFailed(false)
                       formik.handleChange(e)}}
@@ -112,7 +115,7 @@ const Signup = () => {
                     onBlur={formik.handleBlur}
                   />
                   <Form.Control.Feedback type="invalid" tooltip>
-                    { authFailed ? 'Такой пользователь уже существует' : formik.errors.confirmPassword} 
+                    { authFailed ? t('errors.signupErr') : formik.errors.confirmPassword} 
                   </Form.Control.Feedback>
                 </FloatingLabel>
                 <Button
@@ -120,7 +123,7 @@ const Signup = () => {
                   variant="outline-primary"
                   className="w-100 mb-3"
                 >
-                  Зарегистрироваться
+                  {t('signupPage.submitBtn')}
                 </Button>
               </Form>
             </Card.Body>

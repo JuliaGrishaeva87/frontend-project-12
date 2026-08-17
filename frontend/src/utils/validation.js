@@ -1,24 +1,39 @@
 import * as yup from 'yup'
 
-const validationChannelsShema = (channelsNames) => {
+yup.setLocale({
+  mixed: {
+    required: () => ({ key: 'validation.required' }),
+    oneOf: () => ({ key: 'validation.passwordMatch' }),
+    notOneOf: () => ({ key: 'validation.channelExists' }),
+  },
+  string: {
+    min: ({ min }) => ({
+      key: min === 6 ? 'validation.passwordMin' : 'validation.stringMin',
+      values: { min }
+    }),
+    max: ({ max }) => ({ key: 'validation.stringMax', values: { max } }),
+  },
+})
+
+const validationChannelsSchema = (channelsNames) => {
   return yup.object().shape({
-    name: yup.string().trim().required().min(3).max(20).notOneOf(channelsNames, 'Канал с таким названием уже существует'),
+    name: yup.string().trim().required().min(3).max(20).notOneOf(channelsNames),
   })
 }
 
-const validationSignupShema = () => {
+const validationSignupSchema = () => {
   return yup.object().shape({
     username: yup.string()
-    .required('Обязательное поле')
-    .min(3, 'От 3 до 20 символов')
-    .max(20, 'От 3 до 20 символов'),
+    .required()
+    .min(3)
+    .max(20),
     password: yup.string()
-    .required('Обязательное поле')
-    .min(6, 'Не менее 6 символов'),
+    .required()
+    .min(6),
     confirmPassword: yup.string()
-    .required('Пароли должны совпадать')
-    .oneOf([yup.ref('password')],'Пароли должны совпадать')
+    .required()
+    .oneOf([yup.ref('password')])
   })
 }
 
-export { validationChannelsShema, validationSignupShema }
+export { validationChannelsSchema, validationSignupSchema }

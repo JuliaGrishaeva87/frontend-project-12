@@ -22,7 +22,9 @@ const channelsSlice = createSlice({
     editChannel: (state, {payload}) => {
       const channel = state.channels.find(c => c.id === payload.id)
       channel && (channel.name = payload.name)
-      state.currentChannel?.id === payload.id && (state.currentChannel.name = payload.name)
+      if (state.currentChannel?.id === payload.id) {
+        state.currentChannel.name = payload.name
+      }
     },
     removeChannel: (state, {payload}) => {
       state.channels = state.channels.filter(channel => channel.id !== payload.id)
