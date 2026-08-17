@@ -73,7 +73,7 @@ const Signup = () => {
                     onBlur={formik.handleBlur}
                   />
                   <Form.Control.Feedback type="invalid" tooltip>
-                    {formik.errors.username}
+                    {t(formik.errors.username?.key, formik.errors.username?.values)}
                   </Form.Control.Feedback>
                 </FloatingLabel>
                 <FloatingLabel
@@ -94,7 +94,7 @@ const Signup = () => {
                     onBlur={formik.handleBlur}
                   />
                   <Form.Control.Feedback type="invalid" tooltip>
-                    {formik.errors.password}
+                    {t(formik.errors.password?.key, formik.errors.password?.values)}
                   </Form.Control.Feedback>
                 </FloatingLabel>
                 <FloatingLabel
@@ -115,7 +115,10 @@ const Signup = () => {
                     onBlur={formik.handleBlur}
                   />
                   <Form.Control.Feedback type="invalid" tooltip>
-                    { authFailed ? t('errors.signupErr') : formik.errors.confirmPassword} 
+                    {authFailed 
+                      ? t('errors.signupErr') 
+                      : t(formik.errors.confirmPassword?.key, formik.errors.confirmPassword?.values)
+                    }
                   </Form.Control.Feedback>
                 </FloatingLabel>
                 <Button
