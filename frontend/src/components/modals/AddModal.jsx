@@ -7,6 +7,9 @@ import routes from '../../utils/routes.js'
 import { useEffect, useRef } from 'react'
 import { setCurrentChannel } from '../../slices/channelsSlice.js'
 import { useTranslation } from 'react-i18next'
+import { notifications } from '@mantine/notifications';
+import { IconCheck, IconX } from '@tabler/icons-react'
+import { Text } from '@mantine/core'
 
 const AddModal = ({handleClose}) => {
   const dispatch = useDispatch()
@@ -33,10 +36,32 @@ const AddModal = ({handleClose}) => {
       try {
         const response = await axios.post(routes.getAddChannelsPath(), channel, { headers: { Authorization: `Bearer ${token}` } } )
         dispatch(setCurrentChannel(response.data))
+        notifications.show({
+          title: '',
+          message: (
+          <Text c="gray.6" size="md">
+            {t('toast.channelAdded')}
+          </Text>
+          ),
+          color: 'green',
+          icon: <IconCheck size={16} />,
+          autoClose: 5000,
+        })
         handleClose()
       }
       catch (err) {
         console.log(err)
+        notifications.show({
+          title: '',
+          message: (
+            <Text c="gray.6" size="md">
+              {t('toast.errors.networkErr')} 
+            </Text>
+          ),
+          color: 'red',
+          icon: <IconX size={16} />,
+          autoClose: 5000,
+        })
       } 
     },
   })

@@ -2,16 +2,16 @@ import * as yup from 'yup'
 
 yup.setLocale({
   mixed: {
-    required: () => ({ key: 'validation.required' }),
-    oneOf: () => ({ key: 'validation.passwordMatch' }),
-    notOneOf: () => ({ key: 'validation.channelExists' }),
+    required: () => ({ key: 'errors.validation.required' }),
+    oneOf: () => ({ key: 'errors.validation.passwordMatch' }),
+    notOneOf: () => ({ key: 'errors.validation.channelExists' }),
   },
   string: {
     min: ({ min }) => ({
-      key: min === 6 ? 'validation.passwordMin' : 'validation.stringMin',
+      key: min === 6 ? 'errors.validation.passwordMin' : 'errors.validation.stringMin',
       values: { min }
     }),
-    max: ({ max }) => ({ key: 'validation.stringMax', values: { max } }),
+    max: ({ max }) => ({ key: 'errors.validation.stringMax', values: { max } }),
   },
 })
 

@@ -3,6 +3,9 @@ import { useSelector } from 'react-redux'
 import routes from '../../utils/routes.js'
 import axios from 'axios'
 import { useTranslation } from 'react-i18next'
+import { notifications } from '@mantine/notifications';
+import { IconCheck, IconX } from '@tabler/icons-react'
+import { Text } from '@mantine/core'
 
 const RemoveModal = ({handleClose}) => {
   const token = useSelector(state => state.auth.token)
@@ -15,9 +18,31 @@ const RemoveModal = ({handleClose}) => {
       await axios.delete(routes.editRemoveChannelsPath(channelId), {
         headers: { Authorization: `Bearer ${token}` }
       } )
+      notifications.show({
+          title: '',
+          message: (
+          <Text c="gray.6" size="md">
+            {t('toast.channelRemoved')}
+          </Text>
+          ),
+          color: 'green',
+          icon: <IconCheck size={16} />,
+          autoClose: 5000,
+        })
     }
     catch (err) {
       console.log(err)
+      notifications.show({
+          title: '',
+          message: (
+            <Text c="gray.6" size="md">
+              {t('toast.errors.networkErr')} 
+            </Text>
+          ),
+          color: 'red',
+          icon: <IconX size={16} />,
+          autoClose: 5000,
+        })
     }
   }
 

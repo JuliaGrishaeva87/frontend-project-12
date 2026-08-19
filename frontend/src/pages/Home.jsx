@@ -10,6 +10,9 @@ import Channels from '../components/Channels.jsx'
 import Messages from '../components/Messages.jsx'
 import socket from '../utils/socket.js'
 import ModalWindow from '../components/modals/index.jsx'
+import { notifications } from '@mantine/notifications'
+import { IconX } from '@tabler/icons-react'
+import { Text } from '@mantine/core'
 
 const Home = () => {
   const token = useSelector(state => state.auth.token)
@@ -26,6 +29,17 @@ const Home = () => {
       }
       catch (err) {
         console.log(err)
+        notifications.show({
+          title: '',
+          message: (
+            <Text c="gray.6" size="md">
+              {t('toast.errors.failedLoad')}
+            </Text>
+          ),
+          color: 'red',
+          icon: <IconX size={16} />,
+          autoClose: 5000,
+        })
       }
     }
     fetchData()

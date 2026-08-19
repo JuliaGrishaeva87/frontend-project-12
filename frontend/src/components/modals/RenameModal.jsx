@@ -3,9 +3,12 @@ import axios from 'axios'
 import routes from '../../utils/routes'
 import { useFormik } from 'formik'
 import { Modal, Form, Button } from 'react-bootstrap'
-import { validationChannelsSchema } from '../../utils/validation'
+import { validationChannelsSchema } from '../../utils/validation.js'
 import { useRef, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
+import { notifications } from '@mantine/notifications';
+import { IconCheck, IconX } from '@tabler/icons-react'
+import { Text } from '@mantine/core'
 
 const RenameModal = ({handleClose}) => {
   const channels = useSelector(state => state.channels.channels)
@@ -35,10 +38,32 @@ const RenameModal = ({handleClose}) => {
         await axios.patch(routes.editRemoveChannelsPath(channelId), editedChannel, {
           headers: { Authorization: `Bearer ${token}` }
         })
+        notifications.show({
+          title: '',
+          message: (
+          <Text c="gray.6" size="md">
+            {t('toast.channelRenamed')}
+          </Text>
+          ),
+          color: 'green',
+          icon: <IconCheck size={16} />,
+          autoClose: 5000,
+        })
         handleClose()
       }
       catch (err) {
         console.log(err)
+        notifications.show({
+          title: '',
+          message: (
+            <Text c="gray.6" size="md">
+              {t('toast.errors.networkErr')} 
+            </Text>
+          ),
+          color: 'red',
+          icon: <IconX size={16} />,
+          autoClose: 5000,
+        })
       } 
     },
   })

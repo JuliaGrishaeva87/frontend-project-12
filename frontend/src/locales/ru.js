@@ -70,5 +70,14 @@ export default {
       modalSendBtn: 'Отправить',
       modalDeleteBtn: 'Удалить',
     },
+    toast: {
+      channelAdded: 'Канал создан',
+      channelRenamed: 'Канал переименован',
+      channelRemoved: 'Канал удален',
+      errors: {
+        failedLoad: 'Не удалось загрузить данные',
+        networkErr: 'Ошибка сети',
+      },
+    },
   },
 }

@@ -8,6 +8,9 @@ import avatarImage from '../assets/avatar-login.jpg'
 import routes from '../utils/routes.js'
 import { setCredentials } from '../slices/authSlice'
 import { useTranslation } from 'react-i18next'
+import { notifications } from '@mantine/notifications';
+import { IconX } from '@tabler/icons-react'
+import { Text } from '@mantine/core'
 
 const Login = () => {
   const [authFailed, setAuthFailed] = useState(false)
@@ -31,7 +34,21 @@ const Login = () => {
       }
       catch (err) {
         formik.setSubmitting(false)
-        setAuthFailed(true)
+        if (err.response?.status === 401) {
+          setAuthFailed(true)
+        } else {
+          notifications.show({
+            title: '',
+            message: (
+              <Text c="gray.6" size="md">
+                {t('toast.errors.networkErr')}
+              </Text>
+            ),
+            color: 'red',
+            icon: <IconX size={16} />,
+            autoClose: 5000,
+          })
+        }
       }
     },
   })

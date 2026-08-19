@@ -5,6 +5,9 @@ import { addMessage } from '../slices/messagesSlice.js'
 import axios from 'axios'
 import routes from '../utils/routes.js'
 import { useTranslation } from 'react-i18next'
+import { notifications } from '@mantine/notifications';
+import { IconX } from '@tabler/icons-react'
+import { Text } from '@mantine/core'
 
 const Messages = () => {
   const currentChannel = useSelector(state => state.channels.currentChannel)
@@ -31,6 +34,17 @@ const Messages = () => {
     }
     catch (err) {
       console.log(t('errors.messageNotSentErr'))
+      notifications.show({
+          title: '',
+          message: (
+            <Text c="gray.6" size="md">
+              {t('toast.errors.networkErr')} 
+            </Text>
+          ),
+          color: 'red',
+          icon: <IconX size={16} />,
+          autoClose: 5000,
+        })
     }
     setText('')
   }
