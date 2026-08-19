@@ -10,6 +10,7 @@ import { useTranslation } from 'react-i18next'
 import { notifications } from '@mantine/notifications';
 import { IconCheck, IconX } from '@tabler/icons-react'
 import { Text } from '@mantine/core'
+import filter from 'leo-profanity'
 
 const AddModal = ({handleClose}) => {
   const dispatch = useDispatch()
@@ -29,8 +30,9 @@ const AddModal = ({handleClose}) => {
     },
     validationSchema: validationChannelsSchema(channelsNames),
     onSubmit: async (values) => {
+      const cleanName = filter.clean(values.name)
       const channel = {
-        name: values.name,
+        name: cleanName,
         removable: true,
       }
       try {

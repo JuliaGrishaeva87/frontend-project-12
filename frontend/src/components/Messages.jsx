@@ -8,6 +8,7 @@ import { useTranslation } from 'react-i18next'
 import { notifications } from '@mantine/notifications';
 import { IconX } from '@tabler/icons-react'
 import { Text } from '@mantine/core'
+import filter from 'leo-profanity'
 
 const Messages = () => {
   const currentChannel = useSelector(state => state.channels.currentChannel)
@@ -24,13 +25,15 @@ const Messages = () => {
   const handleSubmitMessage = async (e) => {
     e.preventDefault()
     if (text.trim() === '') return
+    const cleanText = filter.clean(text)
     const message = {
-      body: text,
+      body: cleanText,
       channelId: currentChannel?.id,
       username: username,
     }
     try {
       await axios.post(routes.getAddMessagesPath(), message, { headers: { Authorization: `Bearer ${token}` } } )
+      setText('')
     }
     catch (err) {
       console.log(t('errors.messageNotSentErr'))
@@ -46,7 +49,6 @@ const Messages = () => {
           autoClose: 5000,
         })
     }
-    setText('')
   }
 
   return (

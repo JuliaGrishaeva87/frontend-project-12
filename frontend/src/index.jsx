@@ -11,6 +11,10 @@ import { I18nextProvider } from 'react-i18next'
 import i18next from './locales/i18next.js'
 import { MantineProvider } from '@mantine/core'
 import { Notifications } from '@mantine/notifications'
+import filter from 'leo-profanity'
+
+filter.loadDictionary('ru')
+filter.add(filter.getDictionary('en'))
 
 createRoot(document.getElementById('root')).render(
   <Provider store={store}>

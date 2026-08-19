@@ -9,6 +9,7 @@ import { useTranslation } from 'react-i18next'
 import { notifications } from '@mantine/notifications';
 import { IconCheck, IconX } from '@tabler/icons-react'
 import { Text } from '@mantine/core'
+import filter from 'leo-profanity'
 
 const RenameModal = ({handleClose}) => {
   const channels = useSelector(state => state.channels.channels)
@@ -31,8 +32,9 @@ const RenameModal = ({handleClose}) => {
     },
     validationSchema: validationChannelsSchema(channelsNames),
     onSubmit: async (values) => {
+      const cleanName = filter.clean(values.name)
       const editedChannel = {
-        name: values.name,
+        name: cleanName,
       }
       try {
         await axios.patch(routes.editRemoveChannelsPath(channelId), editedChannel, {
