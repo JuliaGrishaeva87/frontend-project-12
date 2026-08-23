@@ -10,6 +10,7 @@ import { notifications } from '@mantine/notifications';
 import { IconCheck, IconX } from '@tabler/icons-react'
 import { Text } from '@mantine/core'
 import filter from 'leo-profanity'
+import * as Sentry from "@sentry/react"
 
 const RenameModal = ({handleClose}) => {
   const channels = useSelector(state => state.channels.channels)
@@ -55,6 +56,7 @@ const RenameModal = ({handleClose}) => {
       }
       catch (err) {
         console.log(err)
+        Sentry.captureException(err)
         notifications.show({
           title: '',
           message: (

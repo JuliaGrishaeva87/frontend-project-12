@@ -10,13 +10,16 @@ import Channels from '../components/Channels.jsx'
 import Messages from '../components/Messages.jsx'
 import socket from '../utils/socket.js'
 import ModalWindow from '../components/modals/index.jsx'
+import { useTranslation } from 'react-i18next'
 import { notifications } from '@mantine/notifications'
 import { IconX } from '@tabler/icons-react'
 import { Text } from '@mantine/core'
+import * as Sentry from "@sentry/react"
 
 const Home = () => {
   const token = useSelector(state => state.auth.token)
   const dispatch = useDispatch()
+  const { t } = useTranslation()
 
   useEffect(() => {
     const fetchData = async () => {
@@ -29,6 +32,7 @@ const Home = () => {
       }
       catch (err) {
         console.log(err)
+        Sentry.captureException(err)
         notifications.show({
           title: '',
           message: (
@@ -43,7 +47,7 @@ const Home = () => {
       }
     }
     fetchData()
-  }, [])
+  }, [dispatch, t, token])
 
   useEffect(() => {
     socket.on('newMessage', (payload) => {
@@ -68,7 +72,7 @@ const Home = () => {
       socket.off('removeChannel')
       socket.off('renameChannel')
     }
-  },[])
+  },[dispatch])
 
   return (
     <Container className="h-100 my-4 overflow-hidden rounded shadow">

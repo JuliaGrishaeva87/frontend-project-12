@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next'
 import { notifications } from '@mantine/notifications';
 import { IconCheck, IconX } from '@tabler/icons-react'
 import { Text } from '@mantine/core'
+import * as Sentry from "@sentry/react"
 
 const RemoveModal = ({handleClose}) => {
   const token = useSelector(state => state.auth.token)
@@ -32,6 +33,7 @@ const RemoveModal = ({handleClose}) => {
     }
     catch (err) {
       console.log(err)
+      Sentry.captureException(err)
       notifications.show({
           title: '',
           message: (

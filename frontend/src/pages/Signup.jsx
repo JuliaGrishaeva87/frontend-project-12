@@ -12,6 +12,7 @@ import { useTranslation } from 'react-i18next'
 import { notifications } from '@mantine/notifications'
 import { IconX } from '@tabler/icons-react'
 import { Text } from '@mantine/core'
+import * as Sentry from "@sentry/react"
 
 const Signup = () => {
   const [authFailed, setAuthFailed] = useState(false)
@@ -39,6 +40,7 @@ const Signup = () => {
         if (err.response?.status === 409) {
           setAuthFailed(true)
         } else {
+          Sentry.captureException(err)
           notifications.show({
             title: '',
             message: (

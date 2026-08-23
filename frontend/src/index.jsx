@@ -1,5 +1,6 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
+import * as Sentry from "@sentry/react"
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './index.css'
 import '@mantine/core/styles.css'
@@ -12,6 +13,11 @@ import i18next from './locales/i18next.js'
 import { MantineProvider } from '@mantine/core'
 import { Notifications } from '@mantine/notifications'
 import filter from 'leo-profanity'
+
+Sentry.init({
+  dsn: import.meta.env.VITE_BUGSINK_DSN, 
+  tracesSampleRate: 0.0, 
+})
 
 filter.loadDictionary('ru')
 filter.add(filter.getDictionary('en'))

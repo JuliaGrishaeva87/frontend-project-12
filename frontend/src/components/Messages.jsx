@@ -1,7 +1,6 @@
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { useState } from 'react'
 import { Col, Button, Form, InputGroup } from 'react-bootstrap'
-import { addMessage } from '../slices/messagesSlice.js'
 import axios from 'axios'
 import routes from '../utils/routes.js'
 import { useTranslation } from 'react-i18next'
@@ -9,13 +8,13 @@ import { notifications } from '@mantine/notifications';
 import { IconX } from '@tabler/icons-react'
 import { Text } from '@mantine/core'
 import filter from 'leo-profanity'
+import * as Sentry from "@sentry/react"
 
 const Messages = () => {
   const currentChannel = useSelector(state => state.channels.currentChannel)
   const token = useSelector(state => state.auth.token)
   const messages = useSelector(state => state.messages.messages)
   const username = useSelector(state => state.auth.username)
-  const dispatch = useDispatch()
   const [text, setText] = useState('')
   const currentChannelMessages = messages.filter(
     (message) => message.channelId === currentChannel?.id
@@ -36,7 +35,8 @@ const Messages = () => {
       setText('')
     }
     catch (err) {
-      console.log(t('errors.messageNotSentErr'))
+      console.log(`${t('errors.messageNotSentErr')}:${err}`)
+      Sentry.captureException(err)
       notifications.show({
           title: '',
           message: (
