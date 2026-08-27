@@ -36,8 +36,10 @@ export default {
     },
     homePage: {
       titleChannels: 'Каналы',
+      addChannelPlus: '+',
       dropdownItemDelete: 'Удалить',
       dropdownItemRename: 'Переименовать',
+      dropdownHiddenDiscription: 'Управление каналом',
       amountOfMessages: {
         key_one: '{{count}} сообщение',
         key_few: '{{count}} сообщения',
@@ -73,10 +75,10 @@ export default {
     toast: {
       channelAdded: 'Канал создан',
       channelRenamed: 'Канал переименован',
-      channelRemoved: 'Канал удален',
+      channelRemoved: 'Канал удалён',
       errors: {
         failedLoad: 'Не удалось загрузить данные',
-        networkErr: 'Ошибка сети',
+        networkErr: 'Ошибка соединения',
       },
     },
   },

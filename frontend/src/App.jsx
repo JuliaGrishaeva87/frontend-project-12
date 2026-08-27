@@ -5,7 +5,7 @@ import Home from './pages/Home.jsx'
 import Login from './pages/Login.jsx'
 import NotFound from './pages/NotFound.jsx'
 import PrivateRoute from './components/PrivateRoute.jsx'
-import Singup from './pages/Signup.jsx'
+import Signup from './pages/Signup.jsx'
 import { useDispatch, useSelector } from 'react-redux'
 import { removeCredentials } from './slices/authSlice.js'
 import { useTranslation } from 'react-i18next'
@@ -18,7 +18,7 @@ const ErrorFallback = () => (
   </Container>
 )
 
-const App = () => {
+const App = ({ socket }) => {
   const token = useSelector(state => state.auth.token)
   const dispatch = useDispatch()
   const { t } = useTranslation()
@@ -42,10 +42,10 @@ const App = () => {
           </Navbar>
           <Routes>
             <Route path="/" element={
-              <PrivateRoute><Home /></PrivateRoute>
+              <PrivateRoute><Home socket={socket}/></PrivateRoute>
             } />
             <Route path="/login" element={<Login />} />
-            <Route path='/signup' element={<Singup />} />
+            <Route path='/signup' element={<Signup />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </div>

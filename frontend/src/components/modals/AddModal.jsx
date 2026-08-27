@@ -78,6 +78,9 @@ const AddModal = ({handleClose}) => {
       <Modal.Body>
         <form onSubmit={formik.handleSubmit}>
           <div>
+            <Form.Label className="visually-hidden" htmlFor="name">
+              {t('modals.addRenameModalLabel')}
+            </Form.Label>
             <Form.Control
               name="name"
               id="name"
@@ -87,9 +90,6 @@ const AddModal = ({handleClose}) => {
               isInvalid={formik.touched.name && !!formik.errors.name}
               ref={inputRef}
             />
-            <Form.Label className="visually-hidden" htmlFor="name">
-              {t('modals.addRenameModalLabel')}
-            </Form.Label>
             <Form.Control.Feedback type="invalid">
               {t(formik.errors.name?.key, formik.errors.name?.values)}
             </Form.Control.Feedback>

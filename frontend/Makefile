@@ -2,10 +2,10 @@ install:
 	npm ci
 
 build:
-	npm build
+	npm run build
 
 start:
-	npm start
+	npm run start
 
 vite:
 	npm run dev
