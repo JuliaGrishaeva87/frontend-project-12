@@ -8,7 +8,10 @@ import filter from 'leo-profanity'
 import { configureStore } from '@reduxjs/toolkit'
 import App from './App.jsx'
 import i18next from './locales/i18next.js'
-import reducers from './slices/index.js'
+import authReducer from './slices/authSlice.js'
+import channelsReducer from './slices/channelsSlice.js'
+import messagesReducer from './slices/messagesSlice.js'
+import modalReducer from './slices/modalSlice.js'
 
 const init = async (socketInstance) => {
   Sentry.init({
@@ -22,7 +25,12 @@ const init = async (socketInstance) => {
     await i18next.changeLanguage('ru')
 
   const store = configureStore({
-    reducer: reducers,
+    reducer: {
+      auth: authReducer,
+      channels: channelsReducer,
+      messages: messagesReducer,
+      modal: modalReducer,
+    },
   })
 
   return (
