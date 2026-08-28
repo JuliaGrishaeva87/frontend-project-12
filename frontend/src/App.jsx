@@ -10,13 +10,16 @@ import { useDispatch, useSelector } from 'react-redux'
 import { removeCredentials } from './slices/authSlice.js'
 import { useTranslation } from 'react-i18next'
 
-const ErrorFallback = () => (
-  <Container className="text-center mt-5">
-    <h1>Что-то пошло не так.</h1>
-    <p>Мы уже получили отчет об ошибке и занимаемся решением проблемы.</p>
-    <Button onClick={() => window.location.reload()}>Обновить страницу</Button>
-  </Container>
-)
+const ErrorFallback = () => {
+  const { t } = useTranslation()
+  return (
+    <Container className="text-center mt-5">
+      <h1>{t('errorFallback.h1')}</h1>
+      <p>{t('errorFallback.p')}</p>
+      <Button onClick={() => window.location.reload()}>{t('errorFallback.reloadPage')}</Button>
+    </Container>
+  )
+}
 
 const App = ({ socket }) => {
   const token = useSelector(state => state.auth.token)

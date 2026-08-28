@@ -72,7 +72,7 @@ const Channels = () => {
                 <Dropdown.Toggle
                 id={channel.id}
                 variant={isActive ? 'secondary' : ''}
-                className="flex-grow-0 dropdown-toggle dropdown-toggle-split" aria-expanded="false" />
+                className="flex-grow-0" aria-expanded="false" />
                   <span className="visually-hidden">{t('homePage.dropdownHiddenDiscription')}</span>
                 <Dropdown.Menu>
                   <Dropdown.Item onClick={() => dispatch(openModal({ type: 'removing', item: channel }))}>{t('homePage.dropdownItemDelete')}</Dropdown.Item>
