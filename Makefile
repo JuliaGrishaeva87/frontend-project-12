@@ -8,8 +8,7 @@ start:
 	make start-backend
 
 build:
-	rm -rf frontend/dist
-	npm run build
+	npx -y pnpm@10.34.5 --dir frontend run build
 
 vite:
 	npm run dev --prefix frontend
