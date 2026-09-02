@@ -8,4 +8,4 @@ vite:
 	npm run dev
 
 lint:
-	npm eslint .
+	npx eslint .
