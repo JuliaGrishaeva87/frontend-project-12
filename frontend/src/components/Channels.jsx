@@ -18,7 +18,7 @@ const Channels = () => {
         <span className="fw-bold">{t('homePage.titleChannels')}</span>
         <Button
         type="button"
-        variant="group-vertical"
+        variant="link"
         className="p-0 text-primary"
         onClick={() => dispatch(openModal({ type: 'adding' }))}
         >
