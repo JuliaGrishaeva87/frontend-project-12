@@ -66,8 +66,7 @@ const Channels = () => {
                 className="w-100 rounded-0 text-start text-truncate"
                 onClick={() => handleSelectChannel(channel)}
                 >
-                  <span className="me-1"># </span>
-                  {channel.name}
+                  <span className="me-1"># {channel.name}</span>
                 </Button>
                 <Dropdown.Toggle
                 id={channel.id}
@@ -76,8 +75,16 @@ const Channels = () => {
                 aria-label={t('homePage.dropdownHiddenDiscription')} />
                   <span className="visually-hidden">{t('homePage.dropdownHiddenDiscription')}</span>
                 <Dropdown.Menu>
-                  <Dropdown.Item onClick={() => dispatch(openModal({ type: 'removing', item: channel }))}>{t('homePage.dropdownItemDelete')}</Dropdown.Item>
-                  <Dropdown.Item onClick={() => dispatch(openModal({ type: 'renaming', item: channel }))}>{t('homePage.dropdownItemRename')}</Dropdown.Item>
+                  <Dropdown.Item
+                  role="menuitem"
+                  onClick={() => dispatch(openModal({ type: 'removing', item: channel }))}>
+                      {t('homePage.dropdownItemDelete')}
+                  </Dropdown.Item>
+                  <Dropdown.Item
+                  role="menuitem"
+                  onClick={() => dispatch(openModal({ type: 'renaming', item: channel }))}>
+                    {t('homePage.dropdownItemRename')}
+                  </Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
             </Nav.Item>
