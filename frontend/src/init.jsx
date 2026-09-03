@@ -12,6 +12,8 @@ import authReducer from './slices/authSlice.js'
 import channelsReducer from './slices/channelsSlice.js'
 import messagesReducer from './slices/messagesSlice.js'
 import modalReducer from './slices/modalSlice.js'
+import '@mantine/core/styles.css'
+import '@mantine/notifications/styles.css'
 
 const init = async (socketInstance) => {
   Sentry.init({
