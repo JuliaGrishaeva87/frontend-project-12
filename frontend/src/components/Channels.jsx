@@ -53,8 +53,8 @@ const Channels = () => {
                 className="w-100 text-start rounded-0"
                 onClick={() => handleSelectChannel(channel)}
               >
-                <span className="me-1"># </span>
-                 {channel.name}
+                <span className="me-1">#</span>
+                  {channel.name}
               </Button>
             </Nav.Item>
           )
@@ -66,8 +66,8 @@ const Channels = () => {
                 className="w-100 rounded-0 text-start text-truncate"
                 onClick={() => handleSelectChannel(channel)}
                 >
-                  <span className="me-1"># </span>
-                  {channel.name}
+                  <span className="me-1">#</span>
+                    {channel.name}
                 </Button>
                 <Dropdown.Toggle
                 id={channel.id}
